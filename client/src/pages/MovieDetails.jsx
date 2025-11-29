@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
+import BlurCircle from '../components/BlurCircle'
 
 const MovieDetails = () => {
 
@@ -24,6 +25,12 @@ const MovieDetails = () => {
         <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
              <img src={show.movie.poster_path} alt="" className="max-md:mx-auto rounded-xl h-104
               max-w-70 object-cover"/> 
+
+              <div className="relative flex flex-col gap-3">
+               <BlurCircle top="-100px"  left="-100px"/>
+               <p className="text-primary">ENGLISH</p>
+               <h1 className="text-4xl font-semibold max-w-96 text-balance">{show.movie.title}</h1>
+              </div>
         </div>
     </div>
   ) : (
