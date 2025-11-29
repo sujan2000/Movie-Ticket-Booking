@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { dummyTrailers } from '../assets/assets'
 import BlurCircle from './BlurCircle'
-import ReactPlayer from 'react-player'
+import  ReactPlayer from 'react-player'
 import { PlayCircleIcon } from 'lucide-react'
 
 const TrailerSection = () => {
 
-    const [currentTrailer, setCurrentTrailer] = useState(dummyTrailers[0])
+    const [currentTrailer, setCurrentTrailer] = useState(dummyTrailers[1])
 
     return (
         <div className="px-6 md:px-16 lg:px-24 xl:px-44 py-20 overflow-hidden">
