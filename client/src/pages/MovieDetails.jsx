@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import BlurCircle from '../components/BlurCircle'
+import { StarIcon } from 'lucide-react'
 
 const MovieDetails = () => {
 
@@ -30,6 +31,10 @@ const MovieDetails = () => {
                <BlurCircle top="-100px"  left="-100px"/>
                <p className="text-primary">ENGLISH</p>
                <h1 className="text-4xl font-semibold max-w-96 text-balance">{show.movie.title}</h1>
+               <div className="flex items-center gap-2 text-gray-300">
+                   <StarIcon className="w-5 h-5 text-primary fill-primary"/>
+                   {show.movie.vote_average.toFixed(1)} User Rating
+               </div>
               </div>
         </div>
     </div>
