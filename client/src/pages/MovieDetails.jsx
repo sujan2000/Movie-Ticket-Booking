@@ -15,15 +15,18 @@ const MovieDetails = () => {
     })
   }
 
-  useEffect(()=>{
-     getShow()
-  },[id])
+  useEffect(() => {
+    getShow()
+  }, [id])
 
-  return show ?  (
-    <div>
-       
+  return show ? (
+    <div className="px-6 md:px-16 lg:px pt-30 md:pt-50">
+        <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
+             <img src={show.movie.poster_path} alt="" className="max-md:mx-auto rounded-xl h-104
+              max-w-70 object-cover"/> 
+        </div>
     </div>
-  ) :(
+  ) : (
     <div>
       Loading...
     </div>
