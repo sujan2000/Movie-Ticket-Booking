@@ -79,13 +79,18 @@ const MovieDetails = () => {
       </div>
 
       <DateSelect dateTime={show.dateTime} id={id} />
-      
+
       <p className="text-lg font-medium mt-20 mb-8">You May Also Like</p>
       <div className="flex flex-wrap max-sm:justify-center gap-8">
-        {dummyShowsData.slice(0, 4).map(() => (
-          <MovieCard />
+        {dummyShowsData.slice(0, 4).map((movie, index) => (
+          <MovieCard key={index} movie={movie} />
         ))}
       </div>
+      <div className="flex justify-center mt-20">
+        <button className="px-10 py-3 text-sm bg-primary hover:bg-primary-dull
+            transition rounded-md font-medium cursor-pointer">Show More</button>
+      </div>
+
     </div>
   ) : (
     <div>
