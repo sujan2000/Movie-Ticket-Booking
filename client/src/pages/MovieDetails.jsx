@@ -76,9 +76,9 @@ const MovieDetails = () => {
           ))}
         </div>
       </div>
-          <div>
-            <DateSelect />
-          </div>
+          
+            <DateSelect dateTime={show.dateTime}  id={id}/>
+          
     </div>
   ) : (
     <div>
