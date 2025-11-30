@@ -1,6 +1,6 @@
 import React from 'react'
 import BlurCircle from './BlurCircle'
-import { ChevronLastIcon, ChevronRightIcon } from 'lucide-react'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
 const DateSelect = ({dateTime, id}) => {
   return (
@@ -12,7 +12,7 @@ const DateSelect = ({dateTime, id}) => {
        <div>
         <p className="text-lg font-semibold">Choose Date</p>
         <div className="flex items-center gap-6 text-sm mt-5">
-          <ChevronLastIcon width={28}/>
+          <ChevronLeftIcon width={28}/>
           <span className="grid gird-cols-3 md:flex flex-wrap md:max-w-lg gap-4">
             {Object.keys(dateTime).map((date)=>(
                 <button key={date} className="flex flex-col items-center justify-center h-14 w-14 aspect-square
