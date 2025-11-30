@@ -1,8 +1,10 @@
 const isoTimeFormat = (dateTime) => {
-    const localTime = dateTime.toLocalTimeString('en-US', {
+    const date = new Date(dateTime);
+    const localTime = date.toLocalTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
     })
     return localTime;
 }
+export default isoTimeFormat
