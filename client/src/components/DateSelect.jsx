@@ -26,7 +26,8 @@ const DateSelect = ({dateTime, id}) => {
         </div>
        </div>
    
-       <button className="">Book Now</button>
+       <button className="bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90
+        transition-all cursor-pointer">Book Now</button>
       </div>
     </div>
   )
