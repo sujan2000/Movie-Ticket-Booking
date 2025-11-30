@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import BlurCircle from '../components/BlurCircle'
 import { Heart, PlayCircle, StarIcon } from 'lucide-react'
@@ -9,6 +9,7 @@ import MovieCard from '../components/MovieCard'
 
 const MovieDetails = () => {
 
+  const navigate = useNavigate()
   const { id } = useParams()
   const [show, setShow] = useState(null)
 
@@ -87,7 +88,7 @@ const MovieDetails = () => {
         ))}
       </div>
       <div className="flex justify-center mt-20">
-        <button className="px-10 py-3 text-sm bg-primary hover:bg-primary-dull
+        <button onClick={()=>navigate('/movies')} className="px-10 py-3 text-sm bg-primary hover:bg-primary-dull
             transition rounded-md font-medium cursor-pointer">Show More</button>
       </div>
 
