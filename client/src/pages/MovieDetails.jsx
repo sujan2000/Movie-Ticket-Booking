@@ -5,6 +5,7 @@ import BlurCircle from '../components/BlurCircle'
 import { Heart, PlayCircle, StarIcon } from 'lucide-react'
 import timeFormat from '../lib/timeFormat'
 import DateSelect from '../components/DateSelect'
+import MovieCard from '../components/MovieCard'
 
 const MovieDetails = () => {
 
@@ -76,9 +77,15 @@ const MovieDetails = () => {
           ))}
         </div>
       </div>
-          
-            <DateSelect dateTime={show.dateTime}  id={id}/>
-          <p className="text-lg font-medium mt-20 mb-8">You May Also Like</p>
+
+      <DateSelect dateTime={show.dateTime} id={id} />
+      
+      <p className="text-lg font-medium mt-20 mb-8">You May Also Like</p>
+      <div className="flex flex-wrap max-sm:justify-center gap-8">
+        {dummyShowsData.slice(0, 4).map(() => (
+          <MovieCard />
+        ))}
+      </div>
     </div>
   ) : (
     <div>
