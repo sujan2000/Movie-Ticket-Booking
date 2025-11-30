@@ -78,7 +78,7 @@ const MovieDetails = () => {
       </div>
           
             <DateSelect dateTime={show.dateTime}  id={id}/>
-          
+          <p className="text-lg font-medium mt-20 mb-8">You May Also Like</p>
     </div>
   ) : (
     <div>
