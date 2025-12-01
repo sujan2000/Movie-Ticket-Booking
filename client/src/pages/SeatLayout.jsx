@@ -9,6 +9,8 @@ import toast from 'react-hot-toast'
 
 const SeatLayout = () => {
 
+  const groupRows = [["A", "B"], ["C", "D"], ["E", "F"], ["G", "H"], ["I", "J"]]
+
   const { id, date } = useParams()
   const [selectedSeats, setSelectedSeats] = useState([])
   const [selectedTime, setSelectedTime] = useState(null)
@@ -83,6 +85,12 @@ const SeatLayout = () => {
         <h1 className="text-2xl font-semibold mb-4">Select Your Seat</h1>
         <img src={assets.screenImage} alt="screen" />
         <p className="text-gray-400 text-sm mb-6">SCREEN SIDE</p>
+
+        <div className="flex flex-col items-center mt-10 text-xs text-gray-300">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6">
+            {groupRows[0].map(row => renderSeats(row))}
+          </div>
+        </div>
       </div>
     </div>
   ) : (
