@@ -52,7 +52,7 @@ const SeatLayout = () => {
             const seatId = `${row}${i + 1}`;
             return (
               <button key={seatId} onClick={() => handleSeatClick(seatId)} className={`h-8 w-8 rounded border border-primary/60
-                cursor-pointer ${selectedSeats.includes(seatId)} && "bg-primary text-white`}>
+                cursor-pointer ${selectedSeats.includes(seatId) && "bg-primary text-white"}`}>
                 {seatId}
               </button>
             )
@@ -88,18 +88,21 @@ const SeatLayout = () => {
         <p className="text-gray-400 text-sm mb-6">SCREEN SIDE</p>
 
         <div className="flex flex-col items-center mt-10 text-xs text-gray-300">
+
           <div className="grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-2 mb-6">
             {groupRows[0].map(row => renderSeats(row))}
           </div>
+
+          <div className='grid grid-cols-2 gap-11'>
+            {groupRows.slice(1).map((group, idx) => (
+              <div key={idx}>
+                {group.map(row => renderSeats(row))}
+              </div>
+            ))}
+          </div>
+
         </div>
 
-        <div className='grid grid-cols-2 gap-11'>
-          {groupRows.slice(1).map((group, idx) => (
-            <div key={idx}>
-              {group.map(row => renderSeats(row))}
-            </div>
-          ))}
-        </div>
 
 
       </div>
