@@ -4,6 +4,7 @@ import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import Loading from '../components/Loading'
 import { ClockIcon } from 'lucide-react'
 import isoTimeFormat from '../lib/isoTimeFormat'
+import BlurCircle from '../components/BlurCircle'
 
 const SeatLayout = () => {
 
@@ -30,7 +31,7 @@ const SeatLayout = () => {
 
   return show ? (
     <div className="flex flex-col md:flex-row px-6 md:px-16 lg:px-40 py-30 md:pt-50">
-      {/* {} */}
+     {/* available time */}
       <div className="w-60 bg-primary/10 border border-primary/20 rounded-lg py-10 
        h-max md:sticky md:top-30">
         <p className="text-lg font-semibold px-6">Available Timings</p>
@@ -45,9 +46,12 @@ const SeatLayout = () => {
         </div>
       </div>
 
-      {/*  */}
+     {/* screean seat layout */}
+      <div className="relative flex-1 flex flex-col items-center max-md:mt-16">
+           <BlurCircle top="-100px" left="-100px"/>
+           <BlurCircle bottom="0" right="0"/>
 
-      <div></div>
+      </div>
     </div>
   ) : (
     <Loading />
