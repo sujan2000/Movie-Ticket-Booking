@@ -28,6 +28,11 @@ const SeatLayout = () => {
     }
   }
 
+  useEffect(() => {
+    getShow()
+  }, [])
+
+
   const handleSeatClick = (seatId) => {
     if (!selectedTime) {
       return toast("Please select time first")
@@ -56,10 +61,6 @@ const SeatLayout = () => {
       </div>
     </div>
   )
-
-  useEffect(() => {
-    getShow()
-  }, [])
 
   return show ? (
     <div className="flex flex-col md:flex-row px-6 md:px-16 lg:px-40 py-30 md:pt-50">
@@ -91,6 +92,16 @@ const SeatLayout = () => {
             {groupRows[0].map(row => renderSeats(row))}
           </div>
         </div>
+
+        <div className='grid grid-cols-2 gap-11'>
+          {groupRows.slice(1).map((group, idx) => (
+            <div key={idx}>
+              {group.map(row => renderSeats(row))}
+            </div>
+          ))}
+        </div>
+
+
       </div>
     </div>
   ) : (
