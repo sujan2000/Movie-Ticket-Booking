@@ -31,6 +31,7 @@ const MyBookings = () => {
       {bookings.map((item, index) => (
         <div key={index} className="flex flex-col md:flex-row justify-between
           bg-primary/8 border border-primary/20 rounded-lg mt-4 p-2 max-w-3xl">
+
           <div className="flex flex-col md:flex-row">
             <img src={item.show.movie.poster_path} alt="" className="md:max-w-45 *:
                aspect-video h-auto object-cover object-bottom rounded"/>
@@ -40,6 +41,17 @@ const MyBookings = () => {
               <p className="text-gray-400 text-sm mt-auto">{dateFormat(item.show.showDateTime)}</p>
             </div>
           </div>
+
+          <div className="flex flex-col md:items-end md:text-right justify-between p-4">
+            <div className="flex items-center gap-4">
+              <p className="text-2xl font-semibold mb-3">
+                {currency}{item.amount}
+              </p>
+              {!item.isPaid && <button className="bg-primary px-4 py-1.5 mb-3 text-sm rounded-full 
+              font-medium cursor-pointer">Pay Now</button>}
+            </div>
+          </div>
+
         </div>
       ))}
 
