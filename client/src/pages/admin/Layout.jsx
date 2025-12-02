@@ -1,8 +1,11 @@
 import React from 'react'
+import AdminNavbar from '../../components/admin/AdminNavbar'
 
 const Layout = () => {
   return (
-    <div>Layout</div>
+    <>
+    <AdminNavbar />
+    </>
   )
 }
 
