@@ -34,8 +34,14 @@ const AddShows = () => {
                 hover:-translate-y-1 transition duration-300`}>
               <div className='relative rounded-lg overflow-hidden'>
                 <img src={movie.poster_path} alt="" className='w-full object-cover brightness-90' />
-                <StarIcon className='w-4 h-4 text-primary fill-primary' />
-                {movie.vote_average.toFixed(1)}
+                <div className='text-sm flex items-center justify-between p-2 bg-black/70
+                   w-full absolute bottom-0 left-0'>
+                  <p className="flex items-center gap-1 text-gray-400">
+                    <StarIcon className='w-4 h-4 text-primary fill-primary' />
+                    {movie.vote_average.toFixed(1)}
+                  </p>
+                  <p className="text-gray-300">{movie.vote_average}</p>
+                </div>
               </div>
 
             </div>
