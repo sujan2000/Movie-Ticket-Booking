@@ -4,6 +4,7 @@ import { dummyDashboardData } from '../../assets/assets';
 import Loading from '../../components/Loading';
 import Title from '../../components/admin/Title';
 import BlurCircle from '../../components/BlurCircle';
+import { dateFormat } from '../../lib/dateFormat';
 
 const Dashboard = () => {
 
@@ -72,6 +73,7 @@ const Dashboard = () => {
                 {show.movie.vote_average.toFixed(1)}
               </p>
             </div>
+            <p className="px-2 pt-2 text-sm text-gray-500">{dateFormat(show.showDateTime)}</p>
           </div>
         ))}
 
