@@ -49,12 +49,26 @@ const AddShows = () => {
                   <CheckIcon className='w-4 h-4 text-white' strokeWidth={2.5} />
                 </div>
               )}
+
+              <p className='font-medium truncate'>{movie.title}</p>
+              <p className='text-gray-400 text-sm'>{movie.release_date}</p>
             </div>
 
           ))}
 
         </div>
       </div>
+      {/* show price input */}
+      <div className='mt-8'>
+        <label className='block text-sm font-medium mb-2'>Show Price</label>
+        <div className='inline-flex items-center gap-2 border border-gray-600 px-3 py-2 rounded-md'>
+          <p className='text-gray-400 text-sm'>{currency}</p>
+          <input min={0} type="number" value={showPrice} className='outline-none'
+            onChange={(e) => setShowPrice(e.target.value)} placeholder='Enter show price' />
+        </div>
+
+      </div>
+
     </>
   ) : (
     <Loading />
