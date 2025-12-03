@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { dummyShowsData } from '../../assets/assets'
 import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
-import { StarIcon } from 'lucide-react'
+import { CheckIcon, StarIcon } from 'lucide-react'
 import { kConverter } from '../../lib/kConverter'
 
 const AddShows = () => {
@@ -32,7 +32,7 @@ const AddShows = () => {
         <div className="group flex flex-wrap gap-4 mt-4 w-max">
           {nowPlayingMovies.map((movie) => (
             <div key={movie.id} className={`relative max-w-40 cursor-pointer group-hover:not-hover:opacity-40
-                hover:-translate-y-1 transition duration-300`}>
+                hover:-translate-y-1 transition duration-300`} onClick={() => setSelectedMovie(movie._id)}>
               <div className='relative rounded-lg overflow-hidden'>
                 <img src={movie.poster_path} alt="" className='w-full object-cover brightness-90' />
                 <div className='text-sm flex items-center justify-between p-2 bg-black/70
@@ -44,7 +44,11 @@ const AddShows = () => {
                   <p className="text-gray-300">{kConverter(movie.vote_count)}</p>
                 </div>
               </div>
-
+              {selectedMovie === movie._id && (
+                <div className='absolute top-2 right-2 flex items-center justify-center bg-primary h-6 w-6 rounded' >
+                  <CheckIcon className='w-4 h-4 text-white' strokeWidth={2.5} />
+                </div>
+              )}
             </div>
 
           ))}
