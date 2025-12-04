@@ -22,11 +22,16 @@ body {
   scrollbar-width: none;
 }
 
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  margin: 0;
 }
 
-::webkit-calendar-picker-indicator {
+/* Fix: add dash before webkit */
+input::-webkit-calendar-picker-indicator {
   filter: invert(1);
+  /* Makes icon white (good for dark mode) */
+  cursor: pointer;
 }
