@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { dummyShowsData } from '../../assets/assets'
 import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
-import { CheckIcon, StarIcon } from 'lucide-react'
+import { CheckIcon, DeleteIcon, StarIcon } from 'lucide-react'
 import { kConverter } from '../../lib/kConverter'
+
 
 const AddShows = () => {
 
@@ -100,13 +101,36 @@ const AddShows = () => {
       <div className='mt-6'>
         <label className='block text-sm font-medium mb-2'>Select Date abd Time</label>
         <div className="inline-flex gap-5 border border-gray-600 p-1 pl-3 rounded-lg">
-          <input type="datetime-local" value={dateTimeInput} onChange={(e) => setDateTimeInput(e.target.value)}
+          <input type="datetime-local" value={dateTimeInput}
+            onChange={(e) => setDateTimeInput(e.target.value)}
             className='outline-none rounded-md' />
-          <button onClick={handleDateTimeAdd} className='bg-primary/80 text-white px-3 py-2 rounded-lg
+          <button onClick={handleDateTimeAdd}
+            className='bg-primary/80 text-white px-3 py-2 text-sm rounded-lg
             hover:bg-primary cursor-pointer'>Add Time</button>
         </div>
       </div>
-
+      {/* display selected time */}
+      {Object.keys(dateTimeSelection).length > 0 && (
+        <div className='mt-6'>
+          <h2 className='mb-2'>Selected Date-Time</h2>
+          <ul className='space-y-3'>
+            {Object.entries(dateTimeSelection).map(([date, times]) => (
+              <li key={date}>
+                <div className='font-medium'>{date}</div>
+                <div className='flex flex-wrap gap-2 mt-1 text-sm'>
+                  {times.map((time) => (
+                    <div className='border border-primary px-2 oy-1 flex items-center rounded'>
+                      <span>{time}</span>
+                      <DeleteIcon onClick={() => handleRemoveTime(date, time)}
+                        width={15} className='text-red-500 hover:text-red-700 cursor-pointer' />
+                    </div>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   ) : (
     <Loading />
