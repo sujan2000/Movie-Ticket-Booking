@@ -5,8 +5,8 @@ import User from "../models/User";
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "movie-ticket-booking" });
 
-//inngest function to save user data to a database
 
+//inngest function to save user data to a database
 const syncUserCreation = inngest.createFunction(
     { id: 'sync-user-from-clerk' },
     { event: 'clerk/user.created' },
@@ -23,5 +23,17 @@ const syncUserCreation = inngest.createFunction(
 )
 
 
-// Create an empty array where we'll export future Inngest functions
-export const functions = [syncUserCreation];
+//Inngest function to delete user from database
+const syncUserDeletion = inngest.createFunction(
+    { id: 'delete-user-from-clerk' },
+    { event: 'clerk/user.deleted' },
+    async ({ event }) => {
+       const {id} = event.data
+       await User.findByIdAndDelete(id)
+    }
+)
+
+
+
+// Create an  array where we'll export  Inngest functions
+export const functions = [syncUserCreation, syncUserDeletion];
