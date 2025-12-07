@@ -48,9 +48,17 @@ export const addShow = async (req, res) => {
                 genres: movieApiData.genres,
                 casts: movieCreditsData.cast,
                 release_date: movieApiData.release_date,
-                original_language: movieApiData.original_language
+                original_language: movieApiData.original_language,
+                tagline: movieApiData.tagline || "",
+                vote_average: movieApiData.vote_average,
+                runtime: movieApiData.runtime,
             }
+
+            //add movie to the database
+            movie = await Movie.create(movieDetails);
         }
+
+        
 
     } catch (error) {
         console.error(error);
