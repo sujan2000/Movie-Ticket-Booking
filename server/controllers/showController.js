@@ -55,7 +55,7 @@ export const addShow = async (req, res) => {
                 runtime: movieApiData.runtime,
             }
 
-            //add movie to the database
+            //Add movie to the database
             movie = await Movie.create(movieDetails);
         }
 
@@ -98,6 +98,21 @@ export const addShow = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.json({ success: false, message: error.message })
+
+    }
+}
+
+
+//API to get all shows from the database
+
+export const getShows = async () => {
+    try {
+
+        const shows = await Show.find(
+            { showDateTime: { $gte: new Date() } }
+        ).populate('movie').sort({ showDateTime: 1 });
+
+    } catch (error) {
 
     }
 }
