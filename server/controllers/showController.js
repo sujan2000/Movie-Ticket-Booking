@@ -36,7 +36,20 @@ export const addShow = async (req, res) => {
 
             ]);
 
-            const movieApiData = movieDetailsResponse.data
+            const movieApiData = movieDetailsResponse.data;
+            const movieCreditsData = movieCreditsResponse.data;
+
+            const movieDetails = {
+                _id: movieId,
+                title: movieApiData.title,
+                overview: movieApiData.overview,
+                poster_path: movieApiData.poster_path,
+                backdrop_path: movieApiData.backdrop_path,
+                genres: movieApiData.genres,
+                casts: movieCreditsData.cast,
+                release_date: movieApiData.release_date,
+                original_language: movieApiData.original_language
+            }
         }
 
     } catch (error) {
