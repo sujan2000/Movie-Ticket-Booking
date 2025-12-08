@@ -105,7 +105,7 @@ export const addShow = async (req, res) => {
 
 //API to get all shows from the database
 
-export const getShows = async () => {
+export const getShows = async (req, res) => {
     try {
 
         const shows = await Show.find(
