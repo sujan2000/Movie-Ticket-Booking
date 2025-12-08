@@ -19,7 +19,7 @@ export const getNowPlayingMovies = async (req, res) => {
     }
 }
 
-//API to add now show to the database
+//API to add new show to the database
 export const addShow = async (req, res) => {
     try {
         const { movieId, showsInput, showPrice } = req.body
@@ -112,7 +112,15 @@ export const getShows = async () => {
             { showDateTime: { $gte: new Date() } }
         ).populate('movie').sort({ showDateTime: 1 });
 
+        //filter unique shows
+        const uniqueShows = new Set(shows.map(show => show.movie))
+
+        res.json({ success: true, shows: Array.from(uniqueShows) })
+
     } catch (error) {
+        console.error(error);
+        res.json({ success: false, message: error.message })
+
 
     }
 }
