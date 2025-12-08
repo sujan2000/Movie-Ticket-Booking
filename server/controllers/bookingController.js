@@ -17,7 +17,7 @@ const checkSeatsAvailability = async (showId, selectedSeats) => {
         return !isAnySeatTaken;
 
     } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         return false;
     }
 }
@@ -46,13 +46,20 @@ export const createBooking = async (req, res) => {
             bookedSeats: selectedSeats
         })
 
-        selectedSeats.map((seat)=>{
+        selectedSeats.map((seat) => {
             showData.occupiedSeats[seat] = userId
         })
-        
+
         showData.markModified('occupiedSeats')
 
+        //Stripe Gatway Initialize
+
+
+        res.json({ success: true, message: 'Booked successfully' })
+
     } catch (error) {
+        console.log(error.message)
+        res.json({ success: false, message: error.message })
 
     }
 }
