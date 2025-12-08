@@ -29,3 +29,19 @@ export const getDashboardData = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+
+
+// API to get all show
+
+export const getAllShows = async (req, res) => {
+    try {
+        const shows = await Show.find(
+            { showDateTime: { $gte: new Date() } }
+        ).populate('movie').sort({ showDateTime })
+
+        res.json({ success: true, shows })
+    } catch (error) {
+        console.error(error)
+        res.json({ success: false, message: error.message })
+    }
+}
