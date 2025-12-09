@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { dummyShowsData } from '../../assets/assets'
 import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
 import { CheckIcon, DeleteIcon, StarIcon } from 'lucide-react'
@@ -89,7 +88,7 @@ const AddShows = () => {
         }
       })
 
-      if (data.seccess) {
+      if (data.success) {
         toast.success(data.message)
         setSelectedMovie(null)
         setDateTimeSelection({})
@@ -120,7 +119,7 @@ const AddShows = () => {
         <div className="group flex flex-wrap gap-4 mt-4 w-max">
           {nowPlayingMovies.map((movie) => (
             <div key={movie.id} className={`relative max-w-40 cursor-pointer group-hover:not-hover:opacity-40
-                hover:-translate-y-1 transition duration-300`} onClick={() => setSelectedMovie(movie._id)}>
+                hover:-translate-y-1 transition duration-300`} onClick={() => setSelectedMovie(movie.id)}>
               <div className='relative rounded-lg overflow-hidden'>
                 <img src={image_base_url + movie.poster_path} alt="" className='w-full object-cover brightness-90' />
                 <div className='text-sm flex items-center justify-between p-2 bg-black/70
@@ -132,7 +131,7 @@ const AddShows = () => {
                   <p className="text-gray-300">{kConverter(movie.vote_count)}</p>
                 </div>
               </div>
-              {selectedMovie === movie._id && (
+              {selectedMovie === movie.id && (
                 <div className='absolute top-2 right-2 flex items-center justify-center bg-primary h-6 w-6 rounded' >
                   <CheckIcon className='w-4 h-4 text-white' strokeWidth={2.5} />
                 </div>
@@ -178,7 +177,7 @@ const AddShows = () => {
                 <div className='font-medium'>{date}</div>
                 <div className='flex flex-wrap gap-2 mt-1 text-sm'>
                   {times.map((time) => (
-                    <div className='border border-primary px-2 oy-1 flex items-center rounded'>
+                    <div key={time} className='border border-primary px-2 oy-1 flex items-center rounded'>
                       <span>{time}</span>
                       <DeleteIcon onClick={() => handleRemoveTime(date, time)}
                         width={15} className='text-red-500 hover:text-red-700 cursor-pointer' />
