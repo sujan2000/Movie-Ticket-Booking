@@ -38,13 +38,64 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    const fetchShows = async () => {
+        try {
+
+            const { data } = await axios.get('/api/show/all')
+            if (data.seccess) {
+                setShows(data.shows)
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            console.error(error)
+
+        }
+    }
+
+    const fetchFavoritesMovies = async () => {
+        try {
+            const { data } = await axios.get('/api/user/favorites', {
+                headers:
+                    { Authorization: `Bearer ${await getToken()}` }
+            })
+
+            if (data.success) {
+                setFavoritesMovies(data.movies)
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+
+
+    useEffect(() => {
+        fetchShows()
+    }, [])
+
     useEffect(() => {
         if (user) {
             fetchIsAdmin()
+            fetchFavoritesMovies()
         }
     }, [user])
 
-    const value = { axios }
+    const value = {
+        axios,
+        fetchIsAdmin,
+        user,
+        getToken,
+        navigate,
+        isAdmin,
+        shows,
+        favoriteMovies,
+        fetchFavoritesMovies
+    }
 
     return (
         <AppContext.Provider value={value}>
