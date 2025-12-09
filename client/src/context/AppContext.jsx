@@ -15,6 +15,8 @@ export const AppProvider = ({ children }) => {
     const [shows, setShows] = useState([])
     const [favoriteMovies, setFavoritesMovies] = useState([])
 
+    const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
+
     const { user } = useUser();
     const { getToken } = useAuth()
     const location = useLocation()
@@ -30,7 +32,7 @@ export const AppProvider = ({ children }) => {
 
             if (!data.isAdmin && location.pathname.startsWith('/admin')) {
                 navigate('/')
-                toast.error('You are not authorized to access admin dashboard')
+                toast.error("You are not authorized to access admin dashboard")
             }
 
         } catch (error) {
@@ -94,7 +96,8 @@ export const AppProvider = ({ children }) => {
         isAdmin,
         shows,
         favoriteMovies,
-        fetchFavoritesMovies
+        fetchFavoritesMovies,
+        image_base_url
     }
 
     return (
