@@ -1,5 +1,8 @@
-import { createContext, useContext, useState } from "react";
-import axios from axios
+import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios"
+import { useAuth, useUser } from "@clerk/clerk-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
@@ -12,8 +15,36 @@ export const AppProvider = ({ children }) => {
     const [shows, setShows] = useState([])
     const [favoriteMovies, setFavoritesMovies] = useState([])
 
+    const { user } = useUser();
+    const { getToken } = useAuth()
+    const location = useLocation()
+    const navigate = useNavigate()
 
-    const value = {}
+    const fetchIsAdmin = async () => {
+        try {
+            const { data } = await axios.get('/api/admin/is-admin', {
+                headers:
+                    { Authorization: `Bearer ${await getToken()}` }
+            })
+            setIsAdmin(data.isAdmin)
+
+            if (!data.isAdmin && location.pathname.startsWith('/admin')) {
+                navigate('/')
+                toast.error('You are not authorized to access admin dashboard')
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        if (user) {
+            fetchIsAdmin()
+        }
+    }, [user])
+
+    const value = { axios }
 
     return (
         <AppContext.Provider value={value}>
