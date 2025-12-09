@@ -3,22 +3,38 @@ import { dummyBookingData } from '../../assets/assets'
 import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
 import { dateFormat } from '../../lib/dateFormat'
+import { useAppContext } from '../../context/AppContext'
 
 const ListBookings = () => {
 
   const currency = import.meta.env.VITE_CURRENCY
+  const { axios, getToken, user } = useAppContext()
+
 
   const [bookings, setBookings] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   const getAllBookings = async () => {
-    setBookings(dummyBookingData)
+    try {
+
+      const { data } = await axios.get('/api/admin/all-bookings', {
+        headers:
+          { Authorization: `Bearer ${await getToken()}` }
+      })
+
+      setBookings(data.bookings)
+
+    } catch (error) {
+      console.error(error)
+    }
     setIsLoading(false)
   }
 
   useEffect(() => {
-    getAllBookings()
-  }, [])
+    if (user) {
+      getAllBookings()
+    }
+  }, [user])
 
   return !isLoading ? (
 
@@ -37,7 +53,20 @@ const ListBookings = () => {
             </tr>
           </thead>
           <tbody className='text-sm font-light'>
-            {bookings.map((item, index) => (
+            {bookings?.map((item) => (
+              <tr key={item._id || Math.random()} className="border-b border-primary/20 bg-primary/5 even:bg-primary/10">
+                <td className="p-2 min-w-45 pl-5">{item.user?.name || "N/A"}</td>
+                <td className="p-2">{item.show?.movie?.title || "N/A"}</td>
+                <td className="p-2">{item.show?.showDateTime ? dateFormat(item.show.showDateTime) : "N/A"}</td>
+                <td className="p-2">
+                  {item.bookedSeats
+                    ? Object.values(item.bookedSeats).join(", ")
+                    : "N/A"}
+                </td>
+                <td className="p-2">{currency} {item.amount ?? 0}</td>
+              </tr>
+            ))}
+            {/* {bookings.map((item, index) => (
               <tr key={index} className="border-b border-primary/20 bg-primary/5 even:bg-primary/10">
                 <td className="p-2 min-w-45 pl-5">{item.user.name}</td>
                 <td className="p-2">{item.show.movie.title}</td>
@@ -45,7 +74,7 @@ const ListBookings = () => {
                 <td className="p-2">{Object.keys(item.bookedSeats).map(seat => item.bookedSeats[seat]).join(", ")}</td>
                 <td className="p-2">{currency} {item.amount}</td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
 
@@ -58,3 +87,5 @@ const ListBookings = () => {
 }
 
 export default ListBookings
+
+
