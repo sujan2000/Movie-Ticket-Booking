@@ -98,7 +98,7 @@ const SeatLayout = () => {
       } else {
         toast.error(data.message)
       }
-      
+
     } catch (error) {
       toast.error(error.message)
     }
@@ -155,7 +155,7 @@ const SeatLayout = () => {
 
         </div>
 
-        <button onClick={() => navigate('/my-bookings')} className="flex items-center gap-1 mt-20 px-10 py-3 text-sm bg-primary 
+        <button onClick={bookTickets} className="flex items-center gap-1 mt-20 px-10 py-3 text-sm bg-primary 
           hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95">
           Proceed to Checkout
           <ArrowRightIcon strokeWidth={3} className="w-4 h-4" />
