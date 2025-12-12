@@ -14,6 +14,8 @@ export const AppProvider = ({ children }) => {
     const [isAdmin, setIsAdmin] = useState(false)
     const [shows, setShows] = useState([])
     const [favoriteMovies, setFavoritesMovies] = useState([])
+    const [checkingAdmin, setCheckingAdmin] = useState(true);
+
 
     const image_base_url = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
@@ -24,19 +26,24 @@ export const AppProvider = ({ children }) => {
 
     const fetchIsAdmin = async () => {
         try {
+            const token = await getToken();
+
+            if (!token) {
+                setIsAdmin(false);
+                setCheckingAdmin(false);
+                return;
+            }
+
             const { data } = await axios.get('/api/admin/is-admin', {
                 headers:
-                    { Authorization: `Bearer ${await getToken()}` }
+                    { Authorization: `Bearer ${token}` }
             })
-            setIsAdmin(data.isAdmin)
 
-            if (!data.isAdmin && location.pathname.startsWith('/admin')) {
-                navigate('/')
-                toast.error("You are not authorized to access admin dashboard")
-            }
+            setIsAdmin(data.isAdmin)
 
         } catch (error) {
             console.error(error)
+            setIsAdmin(false);
         }
     }
 
@@ -81,6 +88,14 @@ export const AppProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
+        if (!checkingAdmin && !isAdmin && location.pathname.startsWith('/admin')) {
+            toast.error("You are not authorized to access admin dashboard");
+            navigate('/');
+        }
+    }, [checkingAdmin, isAdmin, location.pathname])
+
+
+    useEffect(() => {
         if (user) {
             fetchIsAdmin()
             fetchFavoritesMovies()
@@ -108,3 +123,4 @@ export const AppProvider = ({ children }) => {
 }
 
 export const useAppContext = () => useContext(AppContext)
+
