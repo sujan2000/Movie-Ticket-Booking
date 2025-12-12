@@ -1,9 +1,10 @@
 
 import Booking from "../models/Booking.js";
 import Show from "../models/Show.js"
+import stripe from 'stripe'
+
 
 //Function to check availability of selected seats for a movie
-
 
 const checkSeatsAvailability = async (showId, selectedSeats) => {
     try {
@@ -55,6 +56,19 @@ export const createBooking = async (req, res) => {
         await showData.save();
 
         //Stripe Gatway Initialize
+        const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
+
+        //Creating line items for stripe
+        const line_items = [{
+            price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: showData.movie.title
+                },
+                unit_amount: Math.floor(booking.amount)
+            },
+            quantity: 1
+        }]
 
 
         res.json({ success: true, message: 'Booked successfully' })
