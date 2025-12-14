@@ -205,7 +205,31 @@ const sendNewShowNotifications = inngest.createFunction(
     { id: "send-new-show-notifications" },
     { event: "app/show.added" },
     async ({ event }) => {
-        const { movieTitle, movieId } = event.data;
+        const { movieTitle } = event.data;
+        const users = await User.find({})
+
+        for (const user of users) {
+            const userEmail = user.email;
+            const userName = user.name;
+
+            const subject = `New Show Added: ${movieTitle}`;
+            const body = `<div style="font-family; Arial, sans-serif; padding: 20px;">
+              <h2>Hi ${userName},</h2>
+              <p>We've just added a new show to our library:</p>
+              <h3 style="color: #F84565;">"${movieTitle}"</h3>
+              <p>Visit our website</p>
+              <p>Movie Ticket Booking</p>
+            </div>`
+
+            await sendEmail({
+                to: userEmail,
+                subject,
+                body,
+            })
+        }
+
+        return { message: "Notification sent." }
+
     }
 )
 
@@ -216,5 +240,6 @@ export const functions = [
     syncUserUpdation,
     releaseSeatsAndDeleteBooking,
     sendBookingConfirmationEmail,
-    sendShowReminders
+    sendShowReminders,
+    sendNewShowNotifications
 ];

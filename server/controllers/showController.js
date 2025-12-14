@@ -93,6 +93,12 @@ export const addShow = async (req, res) => {
             await Show.insertMany(showsToCreate)
         }
 
+        //Trigger Inggest event
+        await inngest.send({
+            name: "app/show.added",
+            data: { movieTitle: movie.title }
+        })
+
         res.json({ success: true, message: 'Show added successfully.' })
 
     } catch (error) {
