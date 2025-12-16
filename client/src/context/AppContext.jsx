@@ -26,23 +26,24 @@ export const AppProvider = ({ children }) => {
 
     const fetchIsAdmin = async () => {
         try {
-            const token = await getToken();
+            // const token = await getToken();
 
-            if (!token) {
-                setIsAdmin(false);
-                setCheckingAdmin(false);
-                return;
-            }
+            // if (!token) {
+            //     setIsAdmin(false);
+            //     setCheckingAdmin(false);
+            //     return;
+            // }
 
             const { data } = await axios.get('/api/admin/is-admin', {
                 headers:
-                    { Authorization: `Bearer ${token}` }
+                    { Authorization: `Bearer ${await getToken()}` }
             })
 
             setIsAdmin(data.isAdmin)
 
         } catch (error) {
             console.error(error)
+            toast.error("Unable to load admin!");
             setIsAdmin(false);
         }
     }
@@ -59,7 +60,7 @@ export const AppProvider = ({ children }) => {
 
         } catch (error) {
             console.error(error)
-
+            toast.error("Something Wrong!!");
         }
     }
 
@@ -78,6 +79,7 @@ export const AppProvider = ({ children }) => {
 
         } catch (error) {
             console.error(error)
+            toast.error("You have no favorite movie yet!");
         }
     }
 
