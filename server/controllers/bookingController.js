@@ -1,4 +1,5 @@
 
+import { inngest } from "../inngest/index.js";
 import Booking from "../models/Booking.js";
 import Show from "../models/Show.js"
 import stripe from 'stripe'
@@ -72,7 +73,7 @@ export const createBooking = async (req, res) => {
 
         const session = await stripeInstance.checkout.sessions.create({
             success_url: `${origin}/loading/my-bookinhs`,
-            cancel_url: `${origin}/my-bookinhs`,
+            cancel_url: `${origin}/my-bookings`,
             line_items: line_items,
             mode: 'payment',
             metadata: {
