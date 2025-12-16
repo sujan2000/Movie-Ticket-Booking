@@ -52,7 +52,7 @@ export const AppProvider = ({ children }) => {
         try {
 
             const { data } = await axios.get('/api/show/all')
-            if (data.seccess) {
+            if (data.success) {
                 setShows(data.shows)
             } else {
                 toast.error(data.message)
