@@ -72,6 +72,7 @@ const Dashboard = () => {
                 <h1 className="text-sm">{card.title}</h1>
                 <p className="text-xl font-medium mt-1">{card.value}</p>
               </div>
+              <card.icon className='w-6 h-6' />
             </div>
           ))}
 
