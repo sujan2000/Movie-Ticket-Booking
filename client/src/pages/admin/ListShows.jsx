@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
-import { dateFormat } from '../../lib/dateFormat'
+import { dateFormat } from '../../lib/dateFormat.js'
 import { useAppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const ListShows = () => {
 
@@ -23,13 +24,13 @@ const ListShows = () => {
           Authorization: `Bearer ${await getToken()}`
         }
       })
-
-
+      
       setShows(data.shows)
       setLoading(false)
 
     } catch (error) {
       console.log(error)
+      toast.error("Something wrong with show listing!")
     }
   }
 
@@ -54,7 +55,7 @@ const ListShows = () => {
             </tr>
           </thead>
           <tbody className='text-sm font-light'>
-            {shows?.map((show) => (
+            {/* {shows?.map((show) => (
               <tr key={show._id} className="border-b border-primary/10 bg-primary/5 even:bg-primary/10">
                 <td className="p-2 min-w-45 pl-5">{show.movie?.title || "N/A"}</td>
                 <td className="p-2">{dateFormat(show.showDateTime)}</td>
@@ -65,15 +66,15 @@ const ListShows = () => {
                   {currency} {(show.totalBookings ?? 0) * (show.showPrice ?? 0)}
                 </td>
               </tr>
-            ))}
-            {/* {shows.map((show, index) => (
+            ))} */}
+            {shows.map((show, index) => (
               <tr key={index} className="border-b border-primary/10 bg-primary/5 even:bg-primary/10">
                 <td className="p-2 min-w-45 pl-5">{show.movie.title}</td>
                 <td className="p-2">{dateFormat(show.showDateTime)}</td>
                 <td className="p-2">{Object.keys(show.movie.title).length}</td>
                 <td className="p-2">{currency} {Object.keys(show.movie.title).length * show.showPrice}</td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>
