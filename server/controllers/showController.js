@@ -1,6 +1,7 @@
 import axios from "axios"
 import Movie from "../models/Movie.js";
 import Show from "../models/Show.js";
+import { inngest } from "../inngest/index.js";
 
 
 //API to get now playing movies from TMDB API
@@ -12,7 +13,9 @@ export const getNowPlayingMovies = async (req, res) => {
 
         const movies = data.results;
         res.json({ success: true, movies: movies })
+
     } catch (error) {
+
         console.error(error);
         res.json({ success: false, message: error.message })
 
@@ -60,33 +63,35 @@ export const addShow = async (req, res) => {
         }
 
         const showsToCreate = [];
-        showsInput.forEach(show => {
-            let times = show.time;
-            const showDate = show.date;
-            if (!times) return;
 
-            // Make sure times is an array
-            if (!Array.isArray(times)) {
-                if (typeof times === "string") {
-                    times = times.split(",").map(t => t.trim());
-                } else {
-                    times = [times];
-                }
-            }
-            times.forEach((time) => {
+        showsInput.forEach(show => {
+            const showDate = show.date;
+
+            // // Make sure times is an array
+            // if (!Array.isArray(show.time)) {
+            //     if (typeof show.time === "string") {
+            //         show.time = show.time.split(",").map(t => t.trim());
+            //     } else {
+            //         show.time = [show.time];
+            //     }
+            // }
+
+            show.time.forEach((time) => {
                 const dateTimeString = `${showDate}T${time}`;
-                const parsedDate = new Date(dateTimeString);
-                if (isNaN(parsedDate.getTime())) {
-                    console.error("❌ Invalid Date:", dateTimeString);
-                    return;  // Skip invalid entries instead of crashing
-                }
+            
+                // if (isNaN(parsedDate.getTime())) {
+                //     console.error("❌ Invalid Date:", dateTimeString);
+                //     return;  // Skip invalid entries instead of crashing
+                // }
+
                 showsToCreate.push({
                     movie: movieId,
-                    showDateTime: parsedDate,
+                    showDateTime: new Date(dateTimeString),
                     showPrice,
                     occupiedSeats: {}
                 })
             })
+
         });
 
         if (showsToCreate.length > 0) {
