@@ -8,9 +8,7 @@ import { inngest } from "../inngest/index.js";
 export const getNowPlayingMovies = async (req, res) => {
     try {
         const { data } = await axios.get('https://api.themoviedb.org/3/movie/now_playing', {
-            headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` },
-            timeout: 10000, // 10 seconds
-            httpsAgent: new (require('https').Agent)({ keepAlive: false })
+            headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` }
         })
 
         const movies = data.results;
@@ -33,15 +31,11 @@ export const addShow = async (req, res) => {
         if (!movie) {
             const [movieDetailsResponse, movieCreditsResponse] = await Promise.all([
                 axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
-                    headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` },
-                    timeout: 10000, // 10 seconds
-                    httpsAgent: new (require('https').Agent)({ keepAlive: false })
+                    headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` }
                 }),
 
                 axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
-                    headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` },
-                    timeout: 10000, // 10 seconds
-                    httpsAgent: new (require('https').Agent)({ keepAlive: false })
+                    headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` }
                 })
 
             ]);
